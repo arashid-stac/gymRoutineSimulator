@@ -58,10 +58,11 @@ public class CreateRoutine {
 		int amountOfPartsResult = getAmountOfParts();
 
 		Methods methods = new Methods();
+		int musclePairResult = getMusclePair();
 
 		// CHANGE TO SWITCH STATEMENTS????
 		if (amountOfPartsResult == 2) {
-			int musclePairResult = getMusclePair();
+
 			/* biceps and back */
 			if (musclePairResult == 1) {
 				methods.createMuscleGroup(biceps, bicepsColumn, 0);
@@ -104,16 +105,97 @@ public class CreateRoutine {
 			}
 
 		} else {
-			//CREATE SET OF WORKOUTS FOR 3-BODY-PART ROUTINE
+			// CREATE SET OF WORKOUTS FOR 3-BODY-PART ROUTINE
+			/* Chest, Biceps, Triceps */
+			if (musclePairResult == 1) {
+				methods.createMuscleGroup(chest, chestColumn, 2);
+				firstMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(biceps, bicepsColumn, 0);
+				secondMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(triceps, tricepsColumn, 1);
+				thirdMuscle = methods.getMGroup();
+			}
+			/* Back, Triceps, Biceps */
+			else if (musclePairResult == 2) {
+				methods.createMuscleGroup(back, backColumn, 3);
+				firstMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(triceps, tricepsColumn, 1);
+				secondMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(biceps, bicepsColumn, 0);
+				thirdMuscle = methods.getMGroup();
+			}
+			/* Legs, Biceps, Triceps */
+			else if (musclePairResult == 3) {
+				methods.createMuscleGroup(legs, legsColumn, 4);
+				firstMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(triceps, tricepsColumn, 1);
+				secondMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(biceps, bicepsColumn, 0);
+				thirdMuscle = methods.getMGroup();
+			}
+			/* Biceps, Triceps, Abs */
+			else if (musclePairResult == 4) {
+				methods.createMuscleGroup(biceps, bicepsColumn, 0);
+				firstMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(triceps, tricepsColumn, 1);
+				secondMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(abs, absColumn, 5);
+				thirdMuscle = methods.getMGroup();
+			}
+			/* Chest, Back, Abs */
+			else if (musclePairResult == 5) {
+				methods.createMuscleGroup(chest, chestColumn, 2);
+				firstMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(back, backColumn, 3);
+				secondMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(abs, absColumn, 5);
+				thirdMuscle = methods.getMGroup();
+			}
+			/* Chest, Back, Legs */
+			else {
+				methods.createMuscleGroup(chest, chestColumn, 2);
+				firstMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(back, backColumn, 3);
+				secondMuscle = methods.getMGroup();
+
+				methods.createMuscleGroup(legs, legsColumn, 4);
+				thirdMuscle = methods.getMGroup();
+			}
 		}
 
 		/* FOR TWO BODY PART WORKOUT */
 		if (amountOfPartsResult == 2) {
-			for (int i = 0; i < 8; i++) {
+			for (int i = 0; i < 4; i++) {
 				int firstRnd = new Random().nextInt(firstMuscle.length);
 				System.out.println(firstMuscle[firstRnd]);
 				int secondRnd = new Random().nextInt(secondMuscle.length);
 				System.out.println(secondMuscle[secondRnd]);
+			}
+		}
+		/* FOR THREE BODY PART WORKOUT */
+		else {
+			for (int i = 0; i < 3; i++) {
+				int firstRnd = new Random().nextInt(firstMuscle.length);
+				System.out.println(firstMuscle[firstRnd]);
+			}
+			for (int i = 0; i < 3; i++) {
+				int secondRnd = new Random().nextInt(secondMuscle.length);
+				System.out.println(secondMuscle[secondRnd]);
+			}
+			for (int i = 0; i < 3; i++) {
+				int thirdRnd = new Random().nextInt(thirdMuscle.length);
+				System.out.println(thirdMuscle[thirdRnd]);
 			}
 		}
 	}

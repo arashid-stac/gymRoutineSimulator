@@ -9,12 +9,17 @@ public class Methods {
 	BufferedReader br;
 	private String[] muscle;
 
-	Methods() {
+	Methods() throws IOException {
 		// Input file path
-		String csvFile = "[input path here]";
+		String csvFile = "input file path here";
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
+			/*
+			 * Read the first line so that when passing the CSV file it ignores the first
+			 * row
+			 */
+			br.readLine();
 			this.br = br;
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null,
@@ -25,12 +30,16 @@ public class Methods {
 
 	}
 
+	/*
+	 * Parse the CSV file
+	 */
 	public void createMuscleGroup(String[] muscle, String[] column, int columnNumber) throws IOException {
 		Methods object = new Methods();
 
 		String line = "";
 		String cvsSplitBy = ",";
 		column = null;
+		// The array is size 11 because that's how many rows are in the CSV file
 		muscle = new String[11];
 
 		int i = 0;

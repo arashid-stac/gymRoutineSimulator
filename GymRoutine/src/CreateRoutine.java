@@ -1,50 +1,78 @@
 import java.io.IOException;
 import java.util.Random;
-
 import javax.swing.JOptionPane;
 
 public class CreateRoutine {
+	// Create the arrays the will handle the CSV file
 	private String[] biceps;
-	private String[] bicepsColumn;
 	private String[] triceps;
-	private String[] tricepsColumn;
 	private String[] chest;
-	private String[] chestColumn;
 	private String[] back;
-	private String[] backColumn;
 	private String[] legs;
-	private String[] legsColumn;
 	private String[] abs;
+
+	/*
+	 * Create the arrays that will aid in reading the columns of the CSV file
+	 */
+	private String[] bicepsColumn;
+	private String[] tricepsColumn;
+	private String[] chestColumn;
+	private String[] backColumn;
+	private String[] legsColumn;
 	private String[] absColumn;
 
-	int amountOfParts;
+	/*
+	 * aop: Create string that stores user input in regards to how many body parts
+	 * they would like to exercise amountOfPartsInt: Create int that stores the
+	 * input after converting aop from a String to an int
+	 */
 	String aop = null;
+	int amountOfParts;
+	int amountOfPartsInt;
 
+	/*
+	 * musclePairsString: Create String that will contain the input for what body
+	 * parts the user would like to target musclePair: Create string that holds the
+	 * value of musclePairsString after it's been converted from String to int
+	 */
+	String musclePairsString = null;
 	int musclePair = 0;
 	int mp;
-	String musclePairsString = null;
 
+	/*
+	 * Create the arrays that will hold the resulting exercises for the user
+	 */
 	private String[] firstMuscle;
 	private String[] secondMuscle;
 	private String[] thirdMuscle;
 
+	/*
+	 * isValid: boolean for error handling
+	 */
 	private boolean isValid = false;
-	int amountOfPartsInt;
 
 	public CreateRoutine() {
 		do {
 			try {
-				aop = JOptionPane.showInputDialog("How many body parts? 2 or 3.");
+				// Ask user for how many body parts they'd like to exercise
+				aop = JOptionPane.showInputDialog("How many body parts would you like to exercise? 2 or 3.");
 				amountOfPartsInt = Integer.parseInt(aop);
+				// If the input is either 2 or 3, then move on to the next part
 				if (amountOfPartsInt == 2 || amountOfPartsInt == 3) {
 					isValid = true;
-				} else {
+				}
+				// If input is not 2 or 3, input again.
+				else {
 					JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
-			} catch (NumberFormatException e) {
+			}
+			// if user clicks on cancel or the exit button, then exit the program
+			catch (NumberFormatException e) {
 				if (aop == null) {
 					System.exit(0);
-				} else {
+				}
+				// if user inputs any other incorrect value, input again
+				else {
 					JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -52,23 +80,29 @@ public class CreateRoutine {
 
 		this.amountOfParts = amountOfPartsInt;
 
-		// CHECK HERE FOR ERROR HANDLING!!!!!
 		if (amountOfPartsInt == 2) {
 			do {
 				try {
+					// Ask user what body parts they'd like to exercise
 					musclePairsString = JOptionPane.showInputDialog(
 							"Select which pair:\n1)Biceps and Back\n2) Triceps and Chest\n3) Legs and Abs\n4) Chest and Back\n5) Biceps and Triceps");
 					musclePair = Integer.parseInt(musclePairsString);
+					// To move on to the next part of the program, user would have to input a number
+					// between 0 and 6
 					if (musclePair > 0 && musclePair < 6) {
 						isValid = true;
 					} else {
 						JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
 						isValid = false;
 					}
-				} catch (NumberFormatException e) {
+				}
+				// if user clicks on cancel or the exit button, then exit the program
+				catch (NumberFormatException e) {
 					if (musclePairsString == null) {
 						System.exit(0);
-					} else {
+					}
+					// if user inputs any other invalid input, input again
+					else {
 						JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
 						isValid = false;
 					}
@@ -77,19 +111,25 @@ public class CreateRoutine {
 		} else {
 			do {
 				try {
+					// Ask user what body parts they'd like to exercise
 					musclePairsString = JOptionPane.showInputDialog(
 							"Select which pair:\n1)Biceps, Triceps, Chest\n2)Biceps, Triceps, and Back\n3) Biceps, Triceps, Legs\n4) Biceps, Triceps, Abs\n"
 									+ "5) Chest, Back, Abs\n6) Chest, Back, Legs");
 					musclePair = Integer.parseInt(musclePairsString);
+					// To move on to the next part of the program, user would have to input a number
+					// between 0 and 7
 					if (musclePair > 0 && musclePair < 7) {
 						isValid = true;
 					} else {
 						isValid = false;
 					}
 				} catch (NumberFormatException e) {
+					// if user clicks on cancel or the exit button, then exit the program
 					if (musclePairsString == null) {
 						System.exit(0);
-					} else {
+					}
+					// if user inputs any other invalid input, input again
+					else {
 						JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
 						isValid = false;
 					}
@@ -114,8 +154,12 @@ public class CreateRoutine {
 		Methods methods = new Methods();
 		int musclePairResult = getMusclePair();
 
+		// If the user picks a 2-body-part workout, execute the following
 		if (amountOfPartsResult == 2) {
-
+			/*
+			 * Enter all the muscles into the respective arrays, firstMuscle and
+			 * secondMuscle, depending on the result of the users choice
+			 */
 			/* biceps and back */
 			if (musclePairResult == 1) {
 				methods.createMuscleGroup(biceps, bicepsColumn, 0);
@@ -157,8 +201,14 @@ public class CreateRoutine {
 				secondMuscle = methods.getMGroup();
 			}
 
-		} else {
-			// CREATE SET OF WORKOUTS FOR 3-BODY-PART ROUTINE
+		}
+		// If the user picks a 3-body-part workout, execute the following
+		else {
+			/*
+			 * Enter all the muscles into the respective arrays, firstMuscle, secondMuscle,
+			 * and thirdMuscle, depending on the result of the users choice
+			 */
+
 			/* Chest, Biceps, Triceps */
 			if (musclePairResult == 1) {
 				methods.createMuscleGroup(chest, chestColumn, 2);
@@ -227,7 +277,9 @@ public class CreateRoutine {
 			}
 		}
 
-		/* FOR TWO BODY PART WORKOUT */
+		/*
+		 * Printing results for two-body-part workout
+		 */
 		if (amountOfPartsResult == 2) {
 			for (int i = 0; i < 4; i++) {
 				int firstRnd = new Random().nextInt(firstMuscle.length);
@@ -237,7 +289,9 @@ public class CreateRoutine {
 				System.out.println("4x8    " + secondMuscle[secondRnd]);
 			}
 		}
-		/* FOR THREE BODY PART WORKOUT */
+		/*
+		 * Printing results for two-body-part workout
+		 */
 		else {
 			for (int i = 0; i < 3; i++) {
 				int firstRnd = new Random().nextInt(firstMuscle.length);

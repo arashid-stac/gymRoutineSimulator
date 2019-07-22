@@ -3,21 +3,26 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 public class Methods {
 	BufferedReader br;
 	private String[] muscle;
 
 	Methods() {
-		//Input file path
-		String csvFile = "[Input path here]";
+		// Input file path
+		String csvFile = "[input path here]";
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
 			this.br = br;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+					"File does not exist.\n Check to see " + "if it's in the correct folder.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
+
 	}
 
 	public void createMuscleGroup(String[] muscle, String[] column, int columnNumber) throws IOException {

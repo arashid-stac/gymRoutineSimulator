@@ -18,29 +18,83 @@ public class CreateRoutine {
 	private String[] absColumn;
 
 	int amountOfParts;
+	String aop = null;
 
 	int musclePair = 0;
 	int mp;
-	String musclePairsString;
+	String musclePairsString = null;
 
 	private String[] firstMuscle;
 	private String[] secondMuscle;
 	private String[] thirdMuscle;
 
+	private boolean isValid = false;
+	int amountOfPartsInt;
+
 	public CreateRoutine() {
-		String amountOfParts = JOptionPane.showInputDialog("How many body parts? 2 or 3.");
-		int amountOfPartsInt = Integer.parseInt(amountOfParts);
+		do {
+			try {
+				aop = JOptionPane.showInputDialog("How many body parts? 2 or 3.");
+				amountOfPartsInt = Integer.parseInt(aop);
+				if (amountOfPartsInt == 2 || amountOfPartsInt == 3) {
+					isValid = true;
+				} else {
+					JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			} catch (NumberFormatException e) {
+				if (aop == null) {
+					System.exit(0);
+				} else {
+					JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		} while (isValid == false);
+
 		this.amountOfParts = amountOfPartsInt;
 
+		// CHECK HERE FOR ERROR HANDLING!!!!!
 		if (amountOfPartsInt == 2) {
-			musclePairsString = JOptionPane.showInputDialog(
-					"Select which pair:\n1)Biceps and Back\n2) Triceps and Chest\n3) Legs and Abs\n4) Chest and Back\n5) Biceps and Triceps");
-			musclePair = Integer.parseInt(musclePairsString);
+			do {
+				try {
+					musclePairsString = JOptionPane.showInputDialog(
+							"Select which pair:\n1)Biceps and Back\n2) Triceps and Chest\n3) Legs and Abs\n4) Chest and Back\n5) Biceps and Triceps");
+					musclePair = Integer.parseInt(musclePairsString);
+					if (musclePair > 0 && musclePair < 6) {
+						isValid = true;
+					} else {
+						JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
+						isValid = false;
+					}
+				} catch (NumberFormatException e) {
+					if (musclePairsString == null) {
+						System.exit(0);
+					} else {
+						JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
+						isValid = false;
+					}
+				}
+			} while (isValid == false);
 		} else {
-			musclePairsString = JOptionPane.showInputDialog(
-					"Select which pair:\n1)Biceps, Triceps, Chest\n2)Biceps, Triceps, and Back\n3) Biceps, Triceps, Legs\n4) Biceps, Triceps, Abs\n"
-							+ "5) Chest, Back, Abs\n6) Chest, Back, Legs");
-			musclePair = Integer.parseInt(musclePairsString);
+			do {
+				try {
+					musclePairsString = JOptionPane.showInputDialog(
+							"Select which pair:\n1)Biceps, Triceps, Chest\n2)Biceps, Triceps, and Back\n3) Biceps, Triceps, Legs\n4) Biceps, Triceps, Abs\n"
+									+ "5) Chest, Back, Abs\n6) Chest, Back, Legs");
+					musclePair = Integer.parseInt(musclePairsString);
+					if (musclePair > 0 && musclePair < 7) {
+						isValid = true;
+					} else {
+						isValid = false;
+					}
+				} catch (NumberFormatException e) {
+					if (musclePairsString == null) {
+						System.exit(0);
+					} else {
+						JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
+						isValid = false;
+					}
+				}
+			} while (isValid == false);
 		}
 		this.mp = musclePair;
 	}
@@ -60,7 +114,6 @@ public class CreateRoutine {
 		Methods methods = new Methods();
 		int musclePairResult = getMusclePair();
 
-		// CHANGE TO SWITCH STATEMENTS????
 		if (amountOfPartsResult == 2) {
 
 			/* biceps and back */
@@ -96,7 +149,7 @@ public class CreateRoutine {
 				secondMuscle = methods.getMGroup();
 			}
 			/* Biceps and Triceps */
-			else {
+			else if (musclePairResult == 5) {
 				methods.createMuscleGroup(biceps, bicepsColumn, 0);
 				firstMuscle = methods.getMGroup();
 
@@ -178,24 +231,25 @@ public class CreateRoutine {
 		if (amountOfPartsResult == 2) {
 			for (int i = 0; i < 4; i++) {
 				int firstRnd = new Random().nextInt(firstMuscle.length);
-				System.out.println(firstMuscle[firstRnd]);
+				System.out.println("4x8    " + firstMuscle[firstRnd]);
+
 				int secondRnd = new Random().nextInt(secondMuscle.length);
-				System.out.println(secondMuscle[secondRnd]);
+				System.out.println("4x8    " + secondMuscle[secondRnd]);
 			}
 		}
 		/* FOR THREE BODY PART WORKOUT */
 		else {
 			for (int i = 0; i < 3; i++) {
 				int firstRnd = new Random().nextInt(firstMuscle.length);
-				System.out.println(firstMuscle[firstRnd]);
+				System.out.println("3x8    " + firstMuscle[firstRnd]);
 			}
 			for (int i = 0; i < 3; i++) {
 				int secondRnd = new Random().nextInt(secondMuscle.length);
-				System.out.println(secondMuscle[secondRnd]);
+				System.out.println("3x8    " + secondMuscle[secondRnd]);
 			}
 			for (int i = 0; i < 3; i++) {
 				int thirdRnd = new Random().nextInt(thirdMuscle.length);
-				System.out.println(thirdMuscle[thirdRnd]);
+				System.out.println("3x8    " + thirdMuscle[thirdRnd]);
 			}
 		}
 	}

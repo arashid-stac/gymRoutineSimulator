@@ -3,7 +3,7 @@ An application that creates a workout routine based on the users input.
 [INCOMPLETE]
 
 1) Haven't implemented error control [DONE]
-2) Check to see if wexercises are duplicated
+2) Check to see if exercises are duplicated
 
 Before running the application, go into the Methods class and manually input the csv path.
 

@@ -10,6 +10,7 @@ public class CreateRoutine {
 	private String[] back;
 	private String[] legs;
 	private String[] abs;
+	private String[] interval;
 
 	/*
 	 * Create the arrays that will aid in reading the columns of the CSV file
@@ -20,6 +21,7 @@ public class CreateRoutine {
 	private String[] backColumn;
 	private String[] legsColumn;
 	private String[] absColumn;
+	private String[] intervalColumn;
 
 	/*
 	 * aop: Create string that stores user input in regards to how many body parts
@@ -66,13 +68,14 @@ public class CreateRoutine {
 		do {
 			try {
 				// Ask user for how many body parts they'd like to exercise
-				aop = JOptionPane.showInputDialog("How many body parts would you like to exercise? 2 or 3.");
+				aop = JOptionPane.showInputDialog("How many body parts would you like to exercise? 2 or 3.\n"
+						+ "Input '0' if you want\nto do some interval training.");
 				amountOfPartsInt = Integer.parseInt(aop);
-				// If the input is either 2 or 3, then move on to the next part
-				if (amountOfPartsInt == 2 || amountOfPartsInt == 3) {
+				// If the input is either 2 or 3 or 0, then move on to the next part
+				if (amountOfPartsInt == 2 || amountOfPartsInt == 3 || amountOfPartsInt == 0) {
 					isValid = true;
 				}
-				// If input is not 2 or 3, input again.
+				// If input is not 2 or 3 or 0, input again.
 				else {
 					JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
@@ -119,7 +122,7 @@ public class CreateRoutine {
 					}
 				}
 			} while (isValid == false);
-		} else {
+		} else if (amountOfPartsInt == 3) {
 			do {
 				try {
 					// Ask user what body parts they'd like to exercise
@@ -146,6 +149,11 @@ public class CreateRoutine {
 					}
 				}
 			} while (isValid == false);
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"Do each exercise for 15 seconds one after the other. \nAfter the final "
+							+ "exercise, take a 3 to 4 minute \nbreak, then start again from \nthe top. Repeat 4 times. "
+							+ "*adjust for difficulty*");
 		}
 		this.mp = musclePair;
 	}
@@ -214,7 +222,7 @@ public class CreateRoutine {
 
 		}
 		// If the user picks a 3-body-part workout, execute the following
-		else {
+		else if (amountOfPartsResult == 3) {
 			/*
 			 * Enter all the muscles into the respective arrays, firstMuscle, secondMuscle,
 			 * and thirdMuscle, depending on the result of the users choice
@@ -286,6 +294,9 @@ public class CreateRoutine {
 				methods.createMuscleGroup(legs, legsColumn, 4);
 				thirdMuscle = methods.getMGroup();
 			}
+		} else if (amountOfPartsInt == 0) {
+			methods.createMuscleGroup(interval, intervalColumn, 6);
+			firstMuscle = methods.getMGroup();
 		}
 
 		/*
@@ -323,7 +334,7 @@ public class CreateRoutine {
 		/*
 		 * Printing results for two-body-part workout
 		 */
-		else {
+		else if (amountOfPartsResult == 3) {
 			for (int i = 0; i < 3; i++) {
 				// Same instructions as above
 				do {
@@ -352,6 +363,12 @@ public class CreateRoutine {
 				System.out.println("3x8    " + thirdMuscle[thirdRnd]);
 
 				thirdMuscle[thirdRnd] = null;
+			}
+		}
+		// Printing results for interval training
+		else if (amountOfPartsInt == 0) {
+			for (int i = 0; i < 10; i++) {
+				System.out.println(firstMuscle[i]);
 			}
 		}
 	}

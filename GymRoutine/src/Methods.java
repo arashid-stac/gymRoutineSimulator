@@ -10,7 +10,7 @@ public class Methods {
 
 	Methods() throws IOException {
 		// Input file path
-		String csvFile = "Add file path here";
+		String csvFile = "Input file path here";
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(csvFile));

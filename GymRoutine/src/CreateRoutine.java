@@ -23,8 +23,11 @@ public class CreateRoutine {
 
 	/*
 	 * aop: Create string that stores user input in regards to how many body parts
-	 * they would like to exercise amountOfPartsInt: Create int that stores the
-	 * input after converting aop from a String to an int
+	 * they would like to exercise
+	 */
+	/*
+	 * amountOfPartsInt: Create int that stores the input after converting aop from
+	 * a String to an int
 	 */
 	String aop = null;
 	int amountOfParts;
@@ -32,8 +35,11 @@ public class CreateRoutine {
 
 	/*
 	 * musclePairsString: Create String that will contain the input for what body
-	 * parts the user would like to target musclePair: Create string that holds the
-	 * value of musclePairsString after it's been converted from String to int
+	 * parts the user would like to target
+	 */
+	/*
+	 * musclePair: Create string that holds the value of musclePairsString after
+	 * it's been converted from String to int
 	 */
 	String musclePairsString = null;
 	int musclePair = 0;
@@ -50,6 +56,11 @@ public class CreateRoutine {
 	 * isValid: boolean for error handling
 	 */
 	private boolean isValid = false;
+
+	// Integers that'll hold randomly generated numbers
+	int firstRnd = 0;
+	int secondRnd = 0;
+	int thirdRnd = 0;
 
 	public CreateRoutine() {
 		do {
@@ -280,13 +291,33 @@ public class CreateRoutine {
 		/*
 		 * Printing results for two-body-part workout
 		 */
+
 		if (amountOfPartsResult == 2) {
 			for (int i = 0; i < 4; i++) {
-				int firstRnd = new Random().nextInt(firstMuscle.length);
+				// Generate random number to represent an element in the array
+				// Keep generating random numbers until you find one that can
+				// represent an element in the array that hasn't already been printed out
+				do {
+					firstRnd = new Random().nextInt(firstMuscle.length);
+				} while (firstMuscle[firstRnd] == null);
+
+				// Print out the workout
 				System.out.println("4x8    " + firstMuscle[firstRnd]);
 
-				int secondRnd = new Random().nextInt(secondMuscle.length);
+				// Set that element in the array to null to indicate that it's been
+				// printed out
+				firstMuscle[firstRnd] = null;
+
+				// Same instructions as above
+				do {
+					secondRnd = new Random().nextInt(secondMuscle.length);
+
+				} while (secondMuscle[secondRnd] == null);
+
 				System.out.println("4x8    " + secondMuscle[secondRnd]);
+
+				secondMuscle[secondRnd] = null;
+
 			}
 		}
 		/*
@@ -294,16 +325,33 @@ public class CreateRoutine {
 		 */
 		else {
 			for (int i = 0; i < 3; i++) {
-				int firstRnd = new Random().nextInt(firstMuscle.length);
+				// Same instructions as above
+				do {
+					firstRnd = new Random().nextInt(firstMuscle.length);
+				} while (firstMuscle[firstRnd] == null);
+
 				System.out.println("3x8    " + firstMuscle[firstRnd]);
+
+				firstMuscle[firstRnd] = null;
 			}
 			for (int i = 0; i < 3; i++) {
-				int secondRnd = new Random().nextInt(secondMuscle.length);
+				// Same instructions as above
+				do {
+					secondRnd = new Random().nextInt(secondMuscle.length);
+				} while (secondMuscle[secondRnd] == null);
+
 				System.out.println("3x8    " + secondMuscle[secondRnd]);
+
+				secondMuscle[secondRnd] = null;
 			}
 			for (int i = 0; i < 3; i++) {
-				int thirdRnd = new Random().nextInt(thirdMuscle.length);
+				do {
+					thirdRnd = new Random().nextInt(thirdMuscle.length);
+				} while (thirdMuscle[thirdRnd] == null);
+
 				System.out.println("3x8    " + thirdMuscle[thirdRnd]);
+
+				thirdMuscle[thirdRnd] = null;
 			}
 		}
 	}

@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
 import javax.swing.JOptionPane;
 
 public class Methods {
@@ -11,7 +10,7 @@ public class Methods {
 
 	Methods() throws IOException {
 		// Input file path
-		String csvFile = "input file path here";
+		String csvFile = "Add file path here";
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(csvFile));

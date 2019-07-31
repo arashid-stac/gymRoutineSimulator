@@ -11,7 +11,7 @@ public class Methods {
 	Methods() throws IOException {
 		// Input file path
 		String csvFile = "Input file path here";
-		BufferedReader br;
+		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
 			/*
@@ -26,7 +26,6 @@ public class Methods {
 					JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
-
 	}
 
 	/*

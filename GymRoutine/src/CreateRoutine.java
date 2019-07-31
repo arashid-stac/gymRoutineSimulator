@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -31,9 +32,9 @@ public class CreateRoutine {
 	 * amountOfPartsInt: Create int that stores the input after converting aop from
 	 * a String to an int
 	 */
-	String aop = null;
-	int amountOfParts;
-	int amountOfPartsInt;
+	private String aop = null;
+	private int amountOfParts;
+	private int amountOfPartsInt;
 
 	/*
 	 * musclePairsString: Create String that will contain the input for what body
@@ -43,8 +44,8 @@ public class CreateRoutine {
 	 * musclePair: Create string that holds the value of musclePairsString after
 	 * it's been converted from String to int
 	 */
-	String musclePairsString = null;
-	int musclePair = 0;
+	private String musclePairsString = null;
+	private int musclePair = 0;
 	int mp;
 
 	/*
@@ -99,7 +100,7 @@ public class CreateRoutine {
 				try {
 					// Ask user what body parts they'd like to exercise
 					musclePairsString = JOptionPane.showInputDialog(
-							"Select which pair:\n1)Biceps and Back\n2) Triceps and Chest\n3) Legs and Abs\n4) Chest and Back\n5) Biceps and Triceps");
+							"Select which pair:\n1) Biceps and Back\n2) Triceps and Chest\n3) Legs and Abs\n4) Chest and Back\n5) Biceps and Triceps");
 					musclePair = Integer.parseInt(musclePairsString);
 					// To move on to the next part of the program, user would have to input a number
 					// between 0 and 6
@@ -171,6 +172,7 @@ public class CreateRoutine {
 		int amountOfPartsResult = getAmountOfParts();
 
 		Methods methods = new Methods();
+
 		int musclePairResult = getMusclePair();
 
 		// If the user picks a 2-body-part workout, execute the following
@@ -371,5 +373,10 @@ public class CreateRoutine {
 				System.out.println(firstMuscle[i]);
 			}
 		}
+
+		/* Close the Buffered Reader */
+
+		BufferedReader theBR = methods.br;
+		theBR.close();
 	}
 }
